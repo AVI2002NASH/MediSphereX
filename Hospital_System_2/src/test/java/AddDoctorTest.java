@@ -1,53 +1,43 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import org.junit.Test;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import com.controller.DoctorController;
+import com.dao.DoctorDao;
 import com.model.Doctor;
-import com.service.DoctorService;
+import com.service.DoctorServiceImpl;
 
-class DoctorControllerTest {
-    private DoctorController doctorController;
-    private DoctorService doctorService;
-    private Model model;
-    private BindingResult bindingResult;
-    private RedirectAttributes redirectAttributes;
+public class AddDoctorTest {
+
+    @InjectMocks
+    private DoctorServiceImpl doctorService;
+
+    @Mock
+    private DoctorDao doctorDao;
 
     @BeforeEach
-    void setUp() {
-        doctorService = mock(DoctorService.class);
-        model = mock(Model.class);
-        bindingResult = mock(BindingResult.class);
-        redirectAttributes = mock(RedirectAttributes.class);
-        doctorController = new DoctorController();
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testAddDoctor() throws Exception {
+    public void testAddDoctor() {
         // Arrange
-        String fullName = "John Doe";
-        String dob = "1990-01-01";
-        String qualification = "MBBS";
-        String specialist = "Cardiology";
-        String email = "john.doe@example.com";
-        String password = "password123";
-        String mobno = "1234567890";
-
-        Doctor doctor = new Doctor(fullName, dob, qualification, specialist, email, mobno, password);
-        when(bindingResult.hasErrors()).thenReturn(false);
+        Doctor doctor = new Doctor("John Doe", "1990-01-01", "MBBS", "Cardiologist", "john@example.com", "1234567890", "password");
+        
+        when(doctorDao.registerDoctor(any(Doctor.class))).thenReturn(true);
 
         // Act
-        String viewName = doctorController.addDoctor(fullName, dob, qualification, specialist, email, password, mobno);
+        boolean result = doctorService.registerDoctor(doctor);
 
         // Assert
-        assertEquals("redirect:/doctor/list", viewName);
-        verify(doctorService).registerDoctor(doctor);
+        assertTrue(result);
+        verify(doctorDao, times(1)).registerDoctor(doctor);
     }
 }
