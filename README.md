@@ -43,7 +43,8 @@ Our HMS has the following features-
 ![image](https://github.com/AVI2002NASH/MediSphereX/assets/78194214/c9e7f570-abc7-473f-a5f6-7a5b68e52584)
 
 2>Admin Dashboard
-![image](https://github.com/AVI2002NASH/MediSphereX/assets/78194214/90a508d2-5a8e-41e7-a6a2-67fb67fe76c4)
+![image](https://github.com/user-attachments/assets/f17f246b-acff-45c9-ae1a-a418a6be9adc)
+
 
 3>Add Speacilist
 ![image](https://github.com/AVI2002NASH/MediSphereX/assets/78194214/a8a995a7-e876-49c9-a64f-ffc0b78295ef)
